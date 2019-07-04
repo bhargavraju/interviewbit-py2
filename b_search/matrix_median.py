@@ -1,17 +1,20 @@
+from bisect import bisect_right
+
+
 def count(A, e):  # number of elements smaller than e in A
     cnts = 0
     for elem in A:
         # cnts += bisect_right(elem, e)
         # This code is same as using bisect_right
-        low = 0
-        high = len(elem)
-        while low < high:
-            mid = (low+high)/2
-            if elem[mid] <= e:
-                low = mid+1
-            else:
-                high = mid
-        cnts += low
+        # low = 0
+        # high = len(elem)
+        # while low < high:
+        #    mid = (low+high)/2
+        #    if elem[mid] <= e:
+        #        low = mid+1
+        #    else:
+        #        high = mid
+        cnts += bisect_right(elem, e)
     return cnts
 
 
