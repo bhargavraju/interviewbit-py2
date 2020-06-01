@@ -42,3 +42,8 @@ def attack(prev, pos):
         if prev[i] == pos or abs(len(prev) - i) == abs(prev[i] - pos):  # Vertical and diagonal check
             return True
     return False
+
+
+test = 3
+ans = solveNQueens(4)
+print(ans)

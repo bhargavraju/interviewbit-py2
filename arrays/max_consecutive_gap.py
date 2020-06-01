@@ -1,3 +1,16 @@
+"""
+Given an unsorted array, find the maximum difference between the successive elements in its sorted form.
+Try to solve it in linear time/space.
+
+Example :
+
+Input : [1, 10, 5]
+Output : 5
+Return 0 if the array contains less than 2 elements.
+
+You may assume that all the elements in the array are non-negative integers and fit in the 32-bit signed integer range.
+You may also assume that the difference will not overflow.
+"""
 from sys import maxint
 
 
@@ -24,6 +37,32 @@ def maximum_gap(A):
         max_gap = max(max_gap, min_bucket[i] - prev_val)
         prev_val = max_bucket[i]
     max_gap = max(max_gap, max_val - prev_val)
+    return max_gap
+
+
+# Solution 2 / python 3
+# @param A : tuple of integers
+# @return an integer
+def maximumGap(A):
+    n = len(A)
+    if n < 2:
+        return 0
+    min_val, max_val = min(A), max(A)
+    diff = max_val - min_val
+    if diff < 2:
+        return diff
+    gap = diff/(n-1)
+    buckets = [[max_val+1, min_val-1] for i in range(n)]
+    for num in A:
+        idx = int((num-min_val)/gap)
+        buckets[idx][0] = min(buckets[idx][0], num)
+        buckets[idx][1] = max(buckets[idx][1], num)
+    max_gap = max(1, int(gap))
+    prev = buckets[0][1]
+    for i in range(1, n):
+        if buckets[i][0] != max_val+1:
+            max_gap = max(max_gap, buckets[i][0]-prev)
+            prev = buckets[i][1]
     return max_gap
 
 
